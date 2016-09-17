@@ -36,7 +36,9 @@
         {
             this.ConversionTab = this.Factory.CreateRibbonTab();
             this.conversionGroup = this.Factory.CreateRibbonGroup();
+            this.CreateJRXML = this.Factory.CreateRibbonButton();
             this.ConversionTab.SuspendLayout();
+            this.conversionGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // ConversionTab
@@ -48,8 +50,18 @@
             // 
             // conversionGroup
             // 
+            this.conversionGroup.Items.Add(this.CreateJRXML);
             this.conversionGroup.Label = "Conversion options";
             this.conversionGroup.Name = "conversionGroup";
+            // 
+            // CreateJRXML
+            // 
+            this.CreateJRXML.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.CreateJRXML.Image = global::WordReportingTool.Properties.Resources.optionJrxml;
+            this.CreateJRXML.Label = "Jasper Reports";
+            this.CreateJRXML.Name = "CreateJRXML";
+            this.CreateJRXML.ScreenTip = "Create a Jasper Reports JRXML file";
+            this.CreateJRXML.ShowImage = true;
             // 
             // WordReportingRibbon
             // 
@@ -59,6 +71,8 @@
             this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.WordReportingRibbon_Load);
             this.ConversionTab.ResumeLayout(false);
             this.ConversionTab.PerformLayout();
+            this.conversionGroup.ResumeLayout(false);
+            this.conversionGroup.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -67,6 +81,7 @@
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab ConversionTab;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup conversionGroup;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton CreateJRXML;
     }
 
     partial class ThisRibbonCollection
