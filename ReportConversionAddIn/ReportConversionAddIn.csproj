@@ -199,6 +199,12 @@
   <ItemGroup>
     <None Include="Resources\optionJrxml.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Converter\Converter.csproj">
+      <Project>{61ef9c7d-69f3-44ae-b889-fa24bc08080e}</Project>
+      <Name>Converter</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

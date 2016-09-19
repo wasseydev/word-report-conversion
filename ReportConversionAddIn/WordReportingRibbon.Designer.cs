@@ -62,6 +62,7 @@
             this.CreateJRXML.Name = "CreateJRXML";
             this.CreateJRXML.ScreenTip = "Create a Jasper Reports JRXML file";
             this.CreateJRXML.ShowImage = true;
+            this.CreateJRXML.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.CreateJRXML_Click);
             // 
             // WordReportingRibbon
             // 
