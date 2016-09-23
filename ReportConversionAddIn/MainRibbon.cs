@@ -7,7 +7,7 @@ using Microsoft.Office.Tools.Ribbon;
 using Converter;
 using System.Windows.Forms;
 
-namespace WordReportingTool
+namespace ReportConversionAddIn
 {
     public partial class MainRibbon
     {

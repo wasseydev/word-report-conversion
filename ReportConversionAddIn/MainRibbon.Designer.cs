@@ -1,4 +1,4 @@
-﻿namespace WordReportingTool
+﻿namespace ReportConversionAddIn
 {
     partial class MainRibbon : Microsoft.Office.Tools.Ribbon.RibbonBase
     {
@@ -57,7 +57,7 @@
             // CreateJRXML
             // 
             this.CreateJRXML.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.CreateJRXML.Image = global::WordReportingTool.Properties.Resources.optionJrxml;
+            this.CreateJRXML.Image = global::ReportConversionAddIn.Properties.Resources.optionJrxml;
             this.CreateJRXML.Label = "Jasper Reports";
             this.CreateJRXML.Name = "CreateJRXML";
             this.CreateJRXML.ScreenTip = "Create a Jasper Reports JRXML file";
