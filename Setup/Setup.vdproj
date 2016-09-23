@@ -472,11 +472,6 @@
             "AssemblyAsmDisplayName" = "8:Converter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_81F82441963AE7246844B350FED07B19"
-                    {
-                    "Name" = "8:Converter.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Converter.dll"
             "TargetName" = "8:"
@@ -646,7 +641,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Word Report Conversion"
         "ProductCode" = "8:{52032CEE-90B0-48F9-BC73-022B06B7EF57}"
-        "PackageCode" = "8:{8201D4C3-CE42-415E-8C29-AE816831A073}"
+        "PackageCode" = "8:{FD6EAE3C-71C4-4A89-AE79-EB362C62C1F6}"
         "UpgradeCode" = "8:{AB888CA7-FD6F-4CC0-B82C-FA5CBA523B2C}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -815,7 +810,7 @@
                                                                     "Condition" = "8:"
                                                                     "Transitive" = "11:FALSE"
                                                                     "ValueTypes" = "3:1"
-                                                                    "Value" = "8:[TARGETDIR]WordReportConversion.vsto|vstolocal"
+                                                                    "Value" = "8:[TARGETDIR]WordReportingTool.vsto|vstolocal"
                                                                     }
                                                                     "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_B4BC3B07CD1244E8A542230D16FD1174"
                                                                     {
