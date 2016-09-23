@@ -33,7 +33,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_3FE1A45EB67040A5B63717428C731C59"
+        "MsmKey" = "8:_3079145DB457455ABB047B358A7004A2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -81,12 +81,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_798F66CA39E44BEDAAFC967ECDD982E8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_7DD58AF1055AC8CE2EB6350680F44D77"
         "OwnerKey" = "8:_2FF5A40A10134EF1A6B70D083DCFA7BC"
         "MsmSig" = "8:_UNDEFINED"
@@ -113,6 +107,12 @@
         {
         "MsmKey" = "8:_81F82441963AE7246844B350FED07B19"
         "OwnerKey" = "8:_62264838078C4E93AF7CF8A9087E26BE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_964DF96711DC44A6A977F57F98615488"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -160,13 +160,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A0A4F7EB38D00288418487F557E48F14"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_81F82441963AE7246844B350FED07B19"
+        "OwnerKey" = "8:_2FF5A40A10134EF1A6B70D083DCFA7BC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -178,7 +172,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2FF5A40A10134EF1A6B70D083DCFA7BC"
+        "OwnerKey" = "8:_81F82441963AE7246844B350FED07B19"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -217,6 +211,12 @@
         "OwnerKey" = "8:_647C78C80404A1E31BB720FBEA4106B7"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A0A4F7EB38D00288418487F557E48F14"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -235,6 +235,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -332,10 +340,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3FE1A45EB67040A5B63717428C731C59"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3079145DB457455ABB047B358A7004A2"
             {
-            "SourcePath" = "8:..\\ReportConversionAddIn\\bin\\Release\\WordReportingTool.dll.manifest"
-            "TargetName" = "8:WordReportingTool.dll.manifest"
+            "SourcePath" = "8:..\\ReportConversionAddIn\\bin\\Release\\ReportConversionAddIn.vsto"
+            "TargetName" = "8:ReportConversionAddIn.vsto"
             "Tag" = "8:"
             "Folder" = "8:_60D3511486ED4D9FB885235043107435"
             "Condition" = "8:"
@@ -414,26 +422,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_798F66CA39E44BEDAAFC967ECDD982E8"
-            {
-            "SourcePath" = "8:..\\ReportConversionAddIn\\bin\\Release\\WordReportingTool.vsto"
-            "TargetName" = "8:WordReportingTool.vsto"
-            "Tag" = "8:"
-            "Folder" = "8:_60D3511486ED4D9FB885235043107435"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7DD58AF1055AC8CE2EB6350680F44D77"
             {
             "AssemblyRegister" = "3:1"
@@ -472,6 +460,11 @@
             "AssemblyAsmDisplayName" = "8:Converter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_81F82441963AE7246844B350FED07B19"
+                    {
+                    "Name" = "8:Converter.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Converter.dll"
             "TargetName" = "8:"
@@ -489,6 +482,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_964DF96711DC44A6A977F57F98615488"
+            {
+            "SourcePath" = "8:..\\ReportConversionAddIn\\bin\\Release\\ReportConversionAddIn.dll.manifest"
+            "TargetName" = "8:ReportConversionAddIn.dll.manifest"
+            "Tag" = "8:"
+            "Folder" = "8:_60D3511486ED4D9FB885235043107435"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A0A4F7EB38D00288418487F557E48F14"
@@ -641,7 +654,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Word Report Conversion"
         "ProductCode" = "8:{52032CEE-90B0-48F9-BC73-022B06B7EF57}"
-        "PackageCode" = "8:{FD6EAE3C-71C4-4A89-AE79-EB362C62C1F6}"
+        "PackageCode" = "8:{709C4F44-2B0D-4863-B553-AB1372EAAEA6}"
         "UpgradeCode" = "8:{AB888CA7-FD6F-4CC0-B82C-FA5CBA523B2C}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -810,7 +823,7 @@
                                                                     "Condition" = "8:"
                                                                     "Transitive" = "11:FALSE"
                                                                     "ValueTypes" = "3:1"
-                                                                    "Value" = "8:[TARGETDIR]WordReportingTool.vsto|vstolocal"
+                                                                    "Value" = "8:[TARGETDIR]ReportConversionAddIn.vsto|vstolocal"
                                                                     }
                                                                     "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_B4BC3B07CD1244E8A542230D16FD1174"
                                                                     {
@@ -1264,7 +1277,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2FF5A40A10134EF1A6B70D083DCFA7BC"
             {
-            "SourcePath" = "8:..\\ReportConversionAddIn\\obj\\Release\\WordReportingTool.dll"
+            "SourcePath" = "8:..\\ReportConversionAddIn\\obj\\Release\\ReportConversionAddIn.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_60D3511486ED4D9FB885235043107435"
@@ -1292,7 +1305,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_62264838078C4E93AF7CF8A9087E26BE"
             {
-            "SourcePath" = "8:..\\ReportConversionAddIn\\obj\\Release\\WordReportingTool.dll"
+            "SourcePath" = "8:..\\ReportConversionAddIn\\obj\\Release\\ReportConversionAddIn.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_60D3511486ED4D9FB885235043107435"
