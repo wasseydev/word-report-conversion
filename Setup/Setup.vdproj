@@ -33,6 +33,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3FE1A45EB67040A5B63717428C731C59"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_5757802600905B6B7B0EFC4EB0590ACB"
         "OwnerKey" = "8:_2FF5A40A10134EF1A6B70D083DCFA7BC"
         "MsmSig" = "8:_UNDEFINED"
@@ -71,6 +77,12 @@
         {
         "MsmKey" = "8:_647C78C80404A1E31BB720FBEA4106B7"
         "OwnerKey" = "8:_2FF5A40A10134EF1A6B70D083DCFA7BC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_798F66CA39E44BEDAAFC967ECDD982E8"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -299,6 +311,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3FE1A45EB67040A5B63717428C731C59"
+            {
+            "SourcePath" = "8:..\\ReportConversionAddIn\\bin\\Release\\WordReportingTool.dll.manifest"
+            "TargetName" = "8:WordReportingTool.dll.manifest"
+            "Tag" = "8:"
+            "Folder" = "8:_60D3511486ED4D9FB885235043107435"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5757802600905B6B7B0EFC4EB0590ACB"
             {
             "AssemblyRegister" = "3:1"
@@ -359,6 +391,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_798F66CA39E44BEDAAFC967ECDD982E8"
+            {
+            "SourcePath" = "8:..\\ReportConversionAddIn\\bin\\Release\\WordReportingTool.vsto"
+            "TargetName" = "8:WordReportingTool.vsto"
+            "Tag" = "8:"
+            "Folder" = "8:_60D3511486ED4D9FB885235043107435"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7DD58AF1055AC8CE2EB6350680F44D77"
@@ -1094,7 +1146,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2FF5A40A10134EF1A6B70D083DCFA7BC"
             {
-            "SourcePath" = "8:..\\ReportConversionAddIn\\obj\\Debug\\WordReportingTool.dll"
+            "SourcePath" = "8:..\\ReportConversionAddIn\\obj\\Release\\WordReportingTool.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_60D3511486ED4D9FB885235043107435"
@@ -1122,7 +1174,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_62264838078C4E93AF7CF8A9087E26BE"
             {
-            "SourcePath" = "8:..\\ReportConversionAddIn\\obj\\Debug\\WordReportingTool.dll"
+            "SourcePath" = "8:..\\ReportConversionAddIn\\obj\\Release\\WordReportingTool.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_60D3511486ED4D9FB885235043107435"
