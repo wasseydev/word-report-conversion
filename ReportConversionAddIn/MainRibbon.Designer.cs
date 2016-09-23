@@ -1,13 +1,13 @@
 ﻿namespace WordReportingTool
 {
-    partial class WordReportingRibbon : Microsoft.Office.Tools.Ribbon.RibbonBase
+    partial class MainRibbon : Microsoft.Office.Tools.Ribbon.RibbonBase
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        public WordReportingRibbon()
+        public MainRibbon()
             : base(Globals.Factory.GetRibbonFactory())
         {
             InitializeComponent();
@@ -69,7 +69,7 @@
             this.Name = "WordReportingRibbon";
             this.RibbonType = "Microsoft.Word.Document";
             this.Tabs.Add(this.ConversionTab);
-            this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.WordReportingRibbon_Load);
+            this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.MainRibbon_Load);
             this.ConversionTab.ResumeLayout(false);
             this.ConversionTab.PerformLayout();
             this.conversionGroup.ResumeLayout(false);
@@ -87,9 +87,9 @@
 
     partial class ThisRibbonCollection
     {
-        internal WordReportingRibbon WordReportingRibbon
+        internal MainRibbon MainRibbon
         {
-            get { return this.GetRibbon<WordReportingRibbon>(); }
+            get { return this.GetRibbon<MainRibbon>(); }
         }
     }
 }

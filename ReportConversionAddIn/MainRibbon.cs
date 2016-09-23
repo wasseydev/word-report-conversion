@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace WordReportingTool
 {
-    public partial class WordReportingRibbon
+    public partial class MainRibbon
     {
-        private void WordReportingRibbon_Load(object sender, RibbonUIEventArgs e)
+        private void MainRibbon_Load(object sender, RibbonUIEventArgs e)
         {
 
         }
