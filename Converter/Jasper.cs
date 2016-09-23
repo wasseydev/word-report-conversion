@@ -29,6 +29,7 @@ namespace Converter
         {
             WordApp = wordApp;
             WordDoc = WordApp.ActiveDocument;
+            SetDefaultPreferences();
         }
 
         /// <summary>
@@ -49,6 +50,15 @@ namespace Converter
             {
                 throw new Exception("No active document");
             }
+            SetDefaultPreferences();
+        }
+
+        /// <summary>
+        /// Set the default preferences for Jasper conversion
+        /// </summary>
+        public void SetDefaultPreferences()
+        {
+            //TODO: Complete this
         }
     }
 }
