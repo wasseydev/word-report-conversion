@@ -40,6 +40,46 @@ namespace Converter
         /// Query string for the report document
         /// </summary>
         XmlElement jQuery;
+        /// <summary>
+        /// Background element
+        /// </summary>
+        XmlElement jBackground;
+        /// <summary>
+        /// Title element
+        /// </summary>
+        XmlElement jTitle;
+        /// <summary>
+        /// Page header element
+        /// </summary>
+        XmlElement jPageHeader;
+        /// <summary>
+        /// Column header element
+        /// </summary>
+        XmlElement jColumnHeader;
+        /// <summary>
+        /// Detail element
+        /// </summary>
+        XmlElement jDetail;
+        /// <summary>
+        /// Column footer element
+        /// </summary>
+        XmlElement jColumnFooter;
+        /// <summary>
+        /// Page footer element
+        /// </summary>
+        XmlElement jPageFooter;
+        /// <summary>
+        /// Last page footer element
+        /// </summary>
+        XmlElement jLastPageFooter;
+        /// <summary>
+        /// Summary element
+        /// </summary>
+        XmlElement jSummary;
+        /// <summary>
+        /// No data element
+        /// </summary>
+        XmlElement jNoData;
 
         /// <summary>
         /// Constructor that takes a Word.Application reference. In this case, the
@@ -109,13 +149,41 @@ namespace Converter
             jJasper.SetAttribute("rightMargin", ((int) WordDoc.PageSetup.RightMargin).ToString());
             jJasper.SetAttribute("topMargin", ((int) WordDoc.PageSetup.TopMargin).ToString());
             jJasper.SetAttribute("bottomMargin", ((int) WordDoc.PageSetup.BottomMargin).ToString());
-
+            jJasper.SetAttribute("whenNoDataType", "NoDataSection");
             jDoc.AppendChild(jJasper);
 
             jQuery = jDoc.CreateElement("queryString");
             jJasper.AppendChild(jQuery);
 
+            jBackground = jDoc.CreateElement("background");
+            jJasper.AppendChild(jBackground);
 
+            jTitle = jDoc.CreateElement("title");
+            jJasper.AppendChild(jTitle);
+
+            jPageHeader = jDoc.CreateElement("pageHeader");
+            jJasper.AppendChild(jPageHeader);
+
+            jColumnHeader = jDoc.CreateElement("columnHeader");
+            jJasper.AppendChild(jColumnHeader);
+
+            jDetail = jDoc.CreateElement("detail");
+            jJasper.AppendChild(jDetail);
+
+            jColumnFooter = jDoc.CreateElement("columnFooter");
+            jJasper.AppendChild(jColumnFooter);
+
+            jPageFooter = jDoc.CreateElement("pageFooter");
+            jJasper.AppendChild(jPageFooter);
+
+            jLastPageFooter = jDoc.CreateElement("lastPageFooter");
+            jJasper.AppendChild(jLastPageFooter);
+
+            jSummary = jDoc.CreateElement("summary");
+            jJasper.AppendChild(jSummary);
+
+            jNoData = jDoc.CreateElement("noData");
+            jJasper.AppendChild(jNoData);
 
             Debug.WriteLine(jDoc.InnerXml);
         }
