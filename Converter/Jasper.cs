@@ -232,14 +232,45 @@ namespace Converter
             }
         }
 
+        protected XmlElement GetBandElement(BandType bandType)
+        {
+            switch (bandType)
+            {
+                case BandType.Background:
+                    return jBackground;
+                case BandType.Title:
+                    return jTitle;
+                case BandType.PageHeader:
+                    return jPageHeader;
+                case BandType.ColumnHeader:
+                    return jColumnHeader;
+                case BandType.Detail:
+                    return jDetail;
+                case BandType.ColumnFooter:
+                    return jColumnFooter;
+                case BandType.PageFooter:
+                    return jPageFooter;
+                case BandType.LastPageFooter:
+                    return jLastPageFooter;
+                case BandType.Summary:
+                    return jSummary;
+                case BandType.NoData:
+                    return jNoData;
+                default:
+                    return null;
+            }
+        }
+
         public void ProcessParagraph(Word.Paragraph paragraph)
         {
             XmlElement band;
             String text = paragraph.Range.Text;
+            Word.Style style = paragraph.get_Style();
+
             Debug.WriteLine("Processing paragraph: " + text);
 
             // TODO: Check the paragraph text for change in band type via $BANDTYPE{...}
-
+            
             if (currentBandType == BandType.Detail)
             {
                 // Add a new band for each paragraph
@@ -248,17 +279,31 @@ namespace Converter
 
                 // Set the band attributes
                 // Set the height based upon the paragraph style - it will stretch
-                Word.Style style = paragraph.get_Style();
                 band.SetAttribute("height", ((int) style.Font.Size).ToString());
                 // Split type
                 band.SetAttribute("splitType", "Stretch");
-                
             }
             else
             {
-                // There is only one band of this type, so all paragraphs have to fit
-
+                // There is only one band of these types, so all paragraphs have to fit
+                XmlElement bandElement = GetBandElement(currentBandType);
+                
+                // If there is a child element, it will be the band. If not, create it
+                if (bandElement.HasChildNodes)
+                {
+                    XmlNode node = bandElement.GetElementsByTagName("band")[0];
+                    band = (XmlElement)node;
+                }
+                else
+                {
+                    // Add a new band covering all paragraphs
+                    band = jDoc.CreateElement("band");
+                    bandElement.AppendChild(band);
+                    band.SetAttribute("height", ((int)style.Font.Size).ToString());
+                    band.SetAttribute("splitType", "Stretch");
+                }
             }
+            
         }
     }
 }
