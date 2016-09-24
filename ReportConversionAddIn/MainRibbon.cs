@@ -23,6 +23,16 @@ namespace ReportConversionAddIn
             {
                 jasper = new Jasper(Globals.ThisAddIn.Application);
                 jasper.InitXML();
+
+#if DEBUG
+                // Output the generated JRXML to the current document if debugging
+                var sel = Globals.ThisAddIn.Application.Selection;
+                sel.WholeStory();
+                sel.Delete();
+                sel.TypeText(jasper.JRXML);
+                // Mark as saved so we don't get asked all the time...
+                Globals.ThisAddIn.Application.ActiveDocument.Saved = true;
+#endif
             }
             catch (Exception ex)
             {

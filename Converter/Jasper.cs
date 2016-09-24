@@ -83,6 +83,10 @@ namespace Converter
             //TODO: Complete this
         }
 
+        public String JRXML {
+            get { return jDoc.InnerXml; }
+        }
+
         /// <summary>
         /// Initialise the XML objects
         /// </summary>
