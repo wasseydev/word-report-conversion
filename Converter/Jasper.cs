@@ -225,6 +225,40 @@ namespace Converter
             // Set the current band type to detail by default
             currentBandType = BandType.Detail;
 
+            // Iterate through the paragraphs
+            foreach (Word.Paragraph paragraph in WordDoc.Paragraphs)
+            {
+                ProcessParagraph(paragraph);
+            }
+        }
+
+        public void ProcessParagraph(Word.Paragraph paragraph)
+        {
+            XmlElement band;
+            String text = paragraph.Range.Text;
+            Debug.WriteLine("Processing paragraph: " + text);
+
+            // TODO: Check the paragraph text for change in band type via $BANDTYPE{...}
+
+            if (currentBandType == BandType.Detail)
+            {
+                // Add a new band for each paragraph
+                band = jDoc.CreateElement("band");
+                jDetail.AppendChild(band);
+
+                // Set the band attributes
+                // Set the height based upon the paragraph style - it will stretch
+                Word.Style style = paragraph.get_Style();
+                band.SetAttribute("height", ((int) style.Font.Size).ToString());
+                // Split type
+                band.SetAttribute("splitType", "Stretch");
+                
+            }
+            else
+            {
+                // There is only one band of this type, so all paragraphs have to fit
+
+            }
         }
     }
 }
