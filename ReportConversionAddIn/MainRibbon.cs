@@ -22,6 +22,7 @@ namespace ReportConversionAddIn
             try
             {
                 jasper = new Jasper(Globals.ThisAddIn.Application);
+                jasper.InitXML();
             }
             catch (Exception ex)
             {
