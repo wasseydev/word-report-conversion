@@ -44,10 +44,6 @@ namespace Converter
         /// </summary>
         XmlDeclaration jDec;
         /// <summary>
-        /// Root
-        /// </summary>
-        XmlElement jRoot;
-        /// <summary>
         /// Jasper element
         /// </summary>
         XmlElement jJasper;
@@ -145,7 +141,12 @@ namespace Converter
         }
 
         public String JRXML {
-            get { return jDoc.InnerXml; }
+            get {
+                //TODO: Properly fix prefix on xsi:schemaLocation
+                String x = jDoc.InnerXml;
+                x = x.Replace("d1p1:schemaLocation=\"", "xsi:schemaLocation=\"");
+                return x;
+            }
         }
 
         /// <summary>
@@ -154,15 +155,18 @@ namespace Converter
         protected void InitXML()
         {
             jDoc = new XmlDocument();
+            
             jDec = jDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            jRoot = jDoc.DocumentElement;
-            jDoc.InsertBefore(jDec, jRoot);
+            jDoc.AppendChild(jDec);
 
             XmlComment comment = jDoc.CreateComment("Created by Word Report Conversion by Wassey Development");
-            jDoc.InsertBefore(comment, jRoot);
+            jDoc.AppendChild(comment);
 
-            // Main jasperReport element - set the page attributes based upon the document
+            // Main jasperReport element
             jJasper = jDoc.CreateElement("jasperReport");
+            jJasper.SetAttribute("xmlns", "http://jasperreports.sourceforge.net/jasperreports");
+            jJasper.SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+            jJasper.SetAttribute("schemaLocation", "http://jasperreports.sourceforge.net/jasperreports", "http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd");
             jDoc.AppendChild(jJasper);
 
             jQuery = jDoc.CreateElement("queryString");
