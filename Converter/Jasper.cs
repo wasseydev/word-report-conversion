@@ -261,6 +261,38 @@ namespace Converter
             }
         }
 
+        /// <summary>
+        /// Parse the provided tag text to ensure it is valid and return the tag
+        /// and inner tag value. The text supplied should start with the $ character,
+        /// and can have any text following the closing }, but must include both
+        /// { and }. There is no specific validation of tag names and values.
+        /// </summary>
+        /// <param name="tagText">The text for the tag</param>
+        /// <param name="tag">The tag from the text i.e. what was after the $</param>
+        /// <param name="inner">The inner value of the tag text, i.e. what is 
+        /// between {}</param>
+        /// <returns>true if the tag text was valid, false otherwise</returns>
+        protected bool ParseTagText(String tagText, out String tag, out String inner)
+        {
+            tag = String.Empty;
+            inner = String.Empty;
+
+            // Must start with $
+            if (!tagText.StartsWith("$")) return false;
+
+            // Tag name is between $ and {, with no } between.
+            int openPos = tagText.IndexOf('{');
+            int closePos = tagText.IndexOf('}');
+
+            // Invalid if close is before open or if either is not present
+            if (closePos < openPos || closePos < 0 || openPos < 0) return false;
+
+            tag = tagText.Substring(1, openPos - 1);
+            inner = tagText.Substring(openPos + 1, closePos - openPos - 1);
+
+            return true;
+        }
+
         public void ProcessParagraph(Word.Paragraph paragraph)
         {
             XmlElement band;
@@ -270,7 +302,51 @@ namespace Converter
             Debug.WriteLine("Processing paragraph: " + text);
 
             // TODO: Check the paragraph text for change in band type via $BANDTYPE{...}
-            
+            if (text.StartsWith("$BANDTYPE{"))
+            {
+                String bandTag, bandValue;
+                if (ParseTagText(text, out bandTag, out bandValue))
+                {
+                    switch (bandValue.ToLower())
+                    {
+                        case "background":
+                            currentBandType = BandType.Background;
+                            break;
+                        case "title":
+                            currentBandType = BandType.Title;
+                            break;
+                        case "pageheader":
+                            currentBandType = BandType.PageHeader;
+                            break;
+                        case "columnheader":
+                            currentBandType = BandType.ColumnHeader;
+                            break;
+                        case "detail":
+                            currentBandType = BandType.Detail;
+                            break;
+                        case "columnfooter":
+                            currentBandType = BandType.ColumnFooter;
+                            break;
+                        case "pagefooter":
+                            currentBandType = BandType.PageFooter;
+                            break;
+                        case "lastpagefooter":
+                            currentBandType = BandType.LastPageFooter;
+                            break;
+                        case "summary":
+                            currentBandType = BandType.Summary;
+                            break;
+                        case "nodata":
+                            currentBandType = BandType.NoData;
+                            break;
+                        default:
+                            Debug.WriteLine("Invalid band type " + bandValue);
+                            break;
+                    }
+                    Debug.WriteLine("Changed band type to " + currentBandType.ToString());
+                    return;
+                }
+            }
             if (currentBandType == BandType.Detail)
             {
                 // Add a new band for each paragraph
