@@ -22,8 +22,7 @@ namespace ReportConversionAddIn
             try
             {
                 jasper = new Jasper(Globals.ThisAddIn.Application);
-                jasper.InitXML();
-
+                jasper.ProcessDocument();
 #if DEBUG
                 // Output the generated JRXML to the current document if debugging
                 var sel = Globals.ThisAddIn.Application.Selection;

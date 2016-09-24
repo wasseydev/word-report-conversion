@@ -10,6 +10,21 @@ using System.Xml;
 
 namespace Converter
 {
+    public enum BandType
+    {
+        none,
+        Background,
+        Title,
+        PageHeader,
+        ColumnHeader,
+        Detail,
+        ColumnFooter,
+        PageFooter,
+        LastPageFooter,
+        Summary,
+        NoData
+    }
+
     public class Jasper
     {
         /// <summary>
@@ -80,6 +95,10 @@ namespace Converter
         /// No data element
         /// </summary>
         XmlElement jNoData;
+        /// <summary>
+        /// The current band type that we are processing
+        /// </summary>
+        BandType currentBandType;
 
         /// <summary>
         /// Constructor that takes a Word.Application reference. In this case, the
@@ -92,6 +111,7 @@ namespace Converter
             WordApp = wordApp;
             WordDoc = WordApp.ActiveDocument;
             SetDefaultPreferences();
+            InitXML();
         }
 
         /// <summary>
@@ -113,6 +133,7 @@ namespace Converter
                 throw new Exception("No active document");
             }
             SetDefaultPreferences();
+            InitXML();
         }
 
         /// <summary>
@@ -130,7 +151,7 @@ namespace Converter
         /// <summary>
         /// Initialise the XML objects
         /// </summary>
-        public void InitXML()
+        protected void InitXML()
         {
             jDoc = new XmlDocument();
             jDec = jDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -142,14 +163,6 @@ namespace Converter
 
             // Main jasperReport element - set the page attributes based upon the document
             jJasper = jDoc.CreateElement("jasperReport");
-            jJasper.SetAttribute("name", WordDoc.Name);
-            jJasper.SetAttribute("pageWidth", ((int) WordDoc.PageSetup.PageWidth).ToString());
-            jJasper.SetAttribute("pageHeight", ((int) WordDoc.PageSetup.PageHeight).ToString());
-            jJasper.SetAttribute("leftMargin", ((int) WordDoc.PageSetup.LeftMargin).ToString());
-            jJasper.SetAttribute("rightMargin", ((int) WordDoc.PageSetup.RightMargin).ToString());
-            jJasper.SetAttribute("topMargin", ((int) WordDoc.PageSetup.TopMargin).ToString());
-            jJasper.SetAttribute("bottomMargin", ((int) WordDoc.PageSetup.BottomMargin).ToString());
-            jJasper.SetAttribute("whenNoDataType", "NoDataSection");
             jDoc.AppendChild(jJasper);
 
             jQuery = jDoc.CreateElement("queryString");
@@ -186,6 +199,28 @@ namespace Converter
             jJasper.AppendChild(jNoData);
 
             Debug.WriteLine(jDoc.InnerXml);
+        }
+
+        /// <summary>
+        /// Process the document, converting it into JRXML
+        /// </summary>
+        public void ProcessDocument()
+        {
+            // Complete the layout attributes
+            jJasper.SetAttribute("pageWidth", ((int)WordDoc.PageSetup.PageWidth).ToString());
+            jJasper.SetAttribute("pageHeight", ((int)WordDoc.PageSetup.PageHeight).ToString());
+            jJasper.SetAttribute("leftMargin", ((int)WordDoc.PageSetup.LeftMargin).ToString());
+            jJasper.SetAttribute("rightMargin", ((int)WordDoc.PageSetup.RightMargin).ToString());
+            jJasper.SetAttribute("topMargin", ((int)WordDoc.PageSetup.TopMargin).ToString());
+            jJasper.SetAttribute("bottomMargin", ((int)WordDoc.PageSetup.BottomMargin).ToString());
+
+            // Other miscellaneous attributes
+            jJasper.SetAttribute("name", WordDoc.Name);
+            jJasper.SetAttribute("whenNoDataType", "NoDataSection");
+
+            // Set the current band type to detail by default
+            currentBandType = BandType.Detail;
+
         }
     }
 }
