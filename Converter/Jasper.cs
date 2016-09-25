@@ -379,7 +379,38 @@ namespace Converter
                     band.SetAttribute("splitType", "Stretch");
                 }
             }
-            
+
+            // Add the text field, report element, text element, and text field expression
+            XmlElement textField = jDoc.CreateElement("textField");
+            XmlElement reportElt = jDoc.CreateElement("reportElement");
+            XmlElement textElt = jDoc.CreateElement("textElement");
+            XmlElement textFieldExp = jDoc.CreateElement("textFieldExpression");
+
+            band.AppendChild(textField);
+            textField.AppendChild(reportElt);
+            textField.AppendChild(textElt);
+            textField.AppendChild(textFieldExp);
+
+            textField.SetAttribute("isStretchWithOverflow", "true");
+            textField.SetAttribute("isBlankWhenNull", "true");
+
+            reportElt.SetAttribute("stretchType", "RelativeToBandHeight");
+            // TODO: Set these attributes to be dynamic based upon paragraph
+            reportElt.SetAttribute("x", "0");
+            int leftPos = (int)WordDoc.PageSetup.LeftMargin;
+            int rightPos = (int)(WordDoc.PageSetup.PageWidth - WordDoc.PageSetup.RightMargin);
+            reportElt.SetAttribute("width", 
+                ((int)(rightPos - leftPos)).ToString());
+            // TODO: If not detail band, then y and height need to be calculated
+            // TODO: y position should consider the paragraph spacing before
+            reportElt.SetAttribute("y", "0");
+            reportElt.SetAttribute("height", ((int)style.Font.Size).ToString());
+
+            textElt.SetAttribute("markup", "styled");
+
+            // TODO: Set the text considering the format
+            XmlCDataSection styledText = jDoc.CreateCDataSection("\"" + text + "\"");
+            textFieldExp.AppendChild(styledText);
         }
     }
 }
