@@ -36,6 +36,14 @@ namespace Converter
         /// </summary>
         Word.Document WordDoc;
         /// <summary>
+        /// Page setup of the document
+        /// </summary>
+        Word.PageSetup pageSetup;
+        /// <summary>
+        /// Column width of the document (or current section possibly)?
+        /// </summary>
+        float columnWidth;
+        /// <summary>
         /// Top-level jasper report document
         /// </summary>
         XmlDocument jDoc;
@@ -211,13 +219,17 @@ namespace Converter
         public void ProcessDocument()
         {
             // Complete the layout attributes
-            jJasper.SetAttribute("pageWidth", ((int)WordDoc.PageSetup.PageWidth).ToString());
-            jJasper.SetAttribute("pageHeight", ((int)WordDoc.PageSetup.PageHeight).ToString());
-            jJasper.SetAttribute("leftMargin", ((int)WordDoc.PageSetup.LeftMargin).ToString());
-            jJasper.SetAttribute("rightMargin", ((int)WordDoc.PageSetup.RightMargin).ToString());
-            jJasper.SetAttribute("topMargin", ((int)WordDoc.PageSetup.TopMargin).ToString());
-            jJasper.SetAttribute("bottomMargin", ((int)WordDoc.PageSetup.BottomMargin).ToString());
+            pageSetup = WordDoc.PageSetup;
+            columnWidth = pageSetup.PageWidth - pageSetup.RightMargin - pageSetup.LeftMargin;
 
+            jJasper.SetAttribute("pageWidth", ((int)pageSetup.PageWidth).ToString());
+            jJasper.SetAttribute("pageHeight", ((int)pageSetup.PageHeight).ToString());
+            jJasper.SetAttribute("leftMargin", ((int)pageSetup.LeftMargin).ToString());
+            jJasper.SetAttribute("rightMargin", ((int)pageSetup.RightMargin).ToString());
+            jJasper.SetAttribute("topMargin", ((int)pageSetup.TopMargin).ToString());
+            jJasper.SetAttribute("bottomMargin", ((int)pageSetup.BottomMargin).ToString());
+            jJasper.SetAttribute("columnWidth", ((int)columnWidth).ToString());
+            
             // Other miscellaneous attributes
             jJasper.SetAttribute("name", WordDoc.Name);
             jJasper.SetAttribute("whenNoDataType", "NoDataSection");
@@ -397,10 +409,7 @@ namespace Converter
             reportElt.SetAttribute("stretchType", "RelativeToBandHeight");
             // TODO: Set these attributes to be dynamic based upon paragraph
             reportElt.SetAttribute("x", "0");
-            int leftPos = (int)WordDoc.PageSetup.LeftMargin;
-            int rightPos = (int)(WordDoc.PageSetup.PageWidth - WordDoc.PageSetup.RightMargin);
-            reportElt.SetAttribute("width", 
-                ((int)(rightPos - leftPos)).ToString());
+            reportElt.SetAttribute("width", ((int)columnWidth).ToString());
             // TODO: If not detail band, then y and height need to be calculated
             // TODO: y position should consider the paragraph spacing before
             reportElt.SetAttribute("y", "0");
