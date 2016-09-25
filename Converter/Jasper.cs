@@ -280,7 +280,8 @@ namespace Converter
         /// { and }. There is no specific validation of tag names and values.
         /// </summary>
         /// <param name="tagText">The text for the tag</param>
-        /// <param name="tag">The tag from the text i.e. what was after the $</param>
+        /// <param name="tag">The tag from the text i.e. what was after the $.
+        /// It is changed to lower case.</param>
         /// <param name="inner">The inner value of the tag text, i.e. what is 
         /// between {}</param>
         /// <param name="nextChar">The position of the next character in tagText
@@ -303,7 +304,7 @@ namespace Converter
             // Invalid if close is before open or if either is not present
             if (closePos < openPos || closePos < 0 || openPos < 0) return false;
 
-            tag = tagText.Substring(1, openPos - 1);
+            tag = tagText.Substring(1, openPos - 1).ToLower();
             inner = tagText.Substring(openPos + 1, closePos - openPos - 1);
             nextChar = closePos + 1;
             return true;
@@ -323,53 +324,56 @@ namespace Converter
             int bandHeight = spaceBefore + spaceAfter + fontSize;
 
             Debug.WriteLine("Processing paragraph: " + text);
+            int parseFromChar = 0;
 
-            // TODO: Check the paragraph text for change in band type via $BANDTYPE{...}
-            if (text.StartsWith("$BANDTYPE{"))
+            if (text.StartsWith("$"))
             {
-                String bandTag, bandValue;
+                String tagName, tagValue;
                 int nextChar;
 
-                if (ParseTagText(text, out bandTag, out bandValue, out nextChar))
+                if (ParseTagText(text, out tagName, out tagValue, out nextChar))
                 {
-                    switch (bandValue.ToLower())
+                    if (tagName.Equals("bandtype"))
                     {
-                        case "background":
-                            currentBandType = BandType.Background;
-                            break;
-                        case "title":
-                            currentBandType = BandType.Title;
-                            break;
-                        case "pageheader":
-                            currentBandType = BandType.PageHeader;
-                            break;
-                        case "columnheader":
-                            currentBandType = BandType.ColumnHeader;
-                            break;
-                        case "detail":
-                            currentBandType = BandType.Detail;
-                            break;
-                        case "columnfooter":
-                            currentBandType = BandType.ColumnFooter;
-                            break;
-                        case "pagefooter":
-                            currentBandType = BandType.PageFooter;
-                            break;
-                        case "lastpagefooter":
-                            currentBandType = BandType.LastPageFooter;
-                            break;
-                        case "summary":
-                            currentBandType = BandType.Summary;
-                            break;
-                        case "nodata":
-                            currentBandType = BandType.NoData;
-                            break;
-                        default:
-                            Debug.WriteLine("Invalid band type " + bandValue);
-                            break;
+                        switch (tagValue.ToLower())
+                        {
+                            case "background":
+                                currentBandType = BandType.Background;
+                                break;
+                            case "title":
+                                currentBandType = BandType.Title;
+                                break;
+                            case "pageheader":
+                                currentBandType = BandType.PageHeader;
+                                break;
+                            case "columnheader":
+                                currentBandType = BandType.ColumnHeader;
+                                break;
+                            case "detail":
+                                currentBandType = BandType.Detail;
+                                break;
+                            case "columnfooter":
+                                currentBandType = BandType.ColumnFooter;
+                                break;
+                            case "pagefooter":
+                                currentBandType = BandType.PageFooter;
+                                break;
+                            case "lastpagefooter":
+                                currentBandType = BandType.LastPageFooter;
+                                break;
+                            case "summary":
+                                currentBandType = BandType.Summary;
+                                break;
+                            case "nodata":
+                                currentBandType = BandType.NoData;
+                                break;
+                            default:
+                                Debug.WriteLine("Invalid band type " + tagValue);
+                                break;
+                        }
+                        Debug.WriteLine("Changed band type to " + currentBandType.ToString());
+                        return;
                     }
-                    Debug.WriteLine("Changed band type to " + currentBandType.ToString());
-                    return;
                 }
             }
             if (currentBandType == BandType.Detail)
@@ -432,6 +436,7 @@ namespace Converter
             textElt.SetAttribute("markup", "styled");
 
             // TODO: Set the text considering the format
+
             XmlCDataSection styledText = jDoc.CreateCDataSection("\"" + text + "\"");
             textFieldExp.AppendChild(styledText);
         }
