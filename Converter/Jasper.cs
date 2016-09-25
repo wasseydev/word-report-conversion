@@ -309,6 +309,7 @@ namespace Converter
         {
             XmlElement band;
             String text = paragraph.Range.Text;
+            text = text.Substring(0, text.Length - 1);
             Word.Style style = paragraph.get_Style();
 
             Debug.WriteLine("Processing paragraph: " + text);
