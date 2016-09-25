@@ -311,6 +311,12 @@ namespace Converter
             String text = paragraph.Range.Text;
             text = text.Substring(0, text.Length - 1);
             Word.Style style = paragraph.get_Style();
+            Word.ParagraphFormat paraFormat = paragraph.Format;
+            
+            int spaceBefore = (int)paraFormat.SpaceBefore;
+            int spaceAfter = (int)paraFormat.SpaceAfter;
+            int fontSize = (int)style.Font.Size;
+            int bandHeight = spaceBefore + spaceAfter + fontSize;
 
             Debug.WriteLine("Processing paragraph: " + text);
 
@@ -368,7 +374,8 @@ namespace Converter
 
                 // Set the band attributes
                 // Set the height based upon the paragraph style - it will stretch
-                band.SetAttribute("height", ((int) style.Font.Size).ToString());
+
+                band.SetAttribute("height", bandHeight.ToString());
                 // Split type
                 band.SetAttribute("splitType", "Stretch");
             }
@@ -388,7 +395,7 @@ namespace Converter
                     // Add a new band covering all paragraphs
                     band = jDoc.CreateElement("band");
                     bandElement.AppendChild(band);
-                    band.SetAttribute("height", ((int)style.Font.Size).ToString());
+                    band.SetAttribute("height", bandHeight.ToString());
                     band.SetAttribute("splitType", "Stretch");
                 }
             }
@@ -413,8 +420,8 @@ namespace Converter
             reportElt.SetAttribute("width", ((int)columnWidth).ToString());
             // TODO: If not detail band, then y and height need to be calculated
             // TODO: y position should consider the paragraph spacing before
-            reportElt.SetAttribute("y", "0");
-            reportElt.SetAttribute("height", ((int)style.Font.Size).ToString());
+            reportElt.SetAttribute("y", spaceBefore.ToString());
+            reportElt.SetAttribute("height", fontSize.ToString());
 
             textElt.SetAttribute("markup", "styled");
 
