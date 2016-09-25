@@ -283,11 +283,15 @@ namespace Converter
         /// <param name="tag">The tag from the text i.e. what was after the $</param>
         /// <param name="inner">The inner value of the tag text, i.e. what is 
         /// between {}</param>
+        /// <param name="nextChar">The position of the next character in tagText
+        /// following the closing brace</param>
         /// <returns>true if the tag text was valid, false otherwise</returns>
-        protected bool ParseTagText(String tagText, out String tag, out String inner)
+        protected bool ParseTagText(String tagText, out String tag, out String inner,
+            out int nextChar)
         {
             tag = String.Empty;
             inner = String.Empty;
+            nextChar = -1;
 
             // Must start with $
             if (!tagText.StartsWith("$")) return false;
@@ -301,7 +305,7 @@ namespace Converter
 
             tag = tagText.Substring(1, openPos - 1);
             inner = tagText.Substring(openPos + 1, closePos - openPos - 1);
-
+            nextChar = closePos + 1;
             return true;
         }
 
@@ -324,7 +328,9 @@ namespace Converter
             if (text.StartsWith("$BANDTYPE{"))
             {
                 String bandTag, bandValue;
-                if (ParseTagText(text, out bandTag, out bandValue))
+                int nextChar;
+
+                if (ParseTagText(text, out bandTag, out bandValue, out nextChar))
                 {
                     switch (bandValue.ToLower())
                     {
