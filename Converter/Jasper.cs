@@ -440,8 +440,8 @@ namespace Converter
             int textLength = text.Length;
             Word.Characters chars = paragraph.Range.Characters;
 
-            Word.Range refStyle = chars[parseFromChar + 1];
-            StringBuilder jText = new StringBuilder(GetOpenStyleTag(refStyle), 2048);
+            Word.Range refRange = chars[parseFromChar + 1];
+            StringBuilder jText = new StringBuilder(GetOpenStyleTag(refRange), 2048);
             
             for (int c = parseFromChar; c < textLength; c++)
             {
@@ -449,16 +449,16 @@ namespace Converter
                 {
                     // Compare the style to refStyle, and if different, close previous
                     // style tag and create a new one
-                    Word.Range curStyle = chars[c + 1];
-                    if (refStyle.Bold != curStyle.Bold
-                        || refStyle.Italic != curStyle.Italic
-                        || refStyle.Underline != curStyle.Underline)
+                    Word.Range curRange = chars[c + 1];
+                    if (refRange.Bold != curRange.Bold
+                        || refRange.Italic != curRange.Italic
+                        || refRange.Underline != curRange.Underline)
                     {
                         // Close the previous style
                         jText.Append("</style>");
                         // Start the new style
-                        jText.Append(GetOpenStyleTag(curStyle));
-                        refStyle = curStyle;
+                        jText.Append(GetOpenStyleTag(curRange));
+                        refRange = curRange;
                     }
                 }
                 // TODO: Cater for fields, etc
