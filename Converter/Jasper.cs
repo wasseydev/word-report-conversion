@@ -149,6 +149,9 @@ namespace Converter
             //TODO: Complete this
         }
 
+        /// <summary>
+        /// The derived JRXML
+        /// </summary>
         public String JRXML {
             get {
                 //TODO: Properly fix prefix on xsi:schemaLocation
@@ -245,6 +248,11 @@ namespace Converter
             }
         }
 
+        /// <summary>
+        /// Returns the appropriate band element for the specified band type.
+        /// </summary>
+        /// <param name="bandType">One of the BandType values</param>
+        /// <returns>XmlElement for the specified band type</returns>
         protected XmlElement GetBandElement(BandType bandType)
         {
             switch (bandType)
@@ -311,6 +319,10 @@ namespace Converter
             return true;
         }
 
+        /// <summary>
+        /// Process a paragraph, converting its contents into jasper reports XML
+        /// </summary>
+        /// <param name="paragraph">A word paragraph</param>
         public void ProcessParagraph(Word.Paragraph paragraph)
         {
             XmlElement band;
@@ -506,6 +518,13 @@ namespace Converter
             textFieldExp.AppendChild(styledText);
         }
 
+        /// <summary>
+        /// Compare the styles of two ranges and return true if they are essentially
+        /// the same, otherwise false.
+        /// </summary>
+        /// <param name="r1">First range to compare</param>
+        /// <param name="r2">Second range to compare</param>
+        /// <returns>true or false</returns>
         protected bool AreStylesEqual(Word.Range r1, Word.Range r2)
         {
             if (
@@ -595,6 +614,11 @@ namespace Converter
             }
         }
 
+        /// <summary>
+        /// Convert an integer representing a color into RGB hex format
+        /// </summary>
+        /// <param name="col">Integer representing a color</param>
+        /// <returns>A string in #XXXXXX format</returns>
         private String RGBHex(int col)
         {
             Color c = Color.FromArgb(col);
