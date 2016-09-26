@@ -450,9 +450,7 @@ namespace Converter
                     // Compare the style to refStyle, and if different, close previous
                     // style tag and create a new one
                     Word.Range curRange = chars[c + 1];
-                    if (refRange.Bold != curRange.Bold
-                        || refRange.Italic != curRange.Italic
-                        || refRange.Underline != curRange.Underline)
+                    if (!AreStylesEqual(refRange, curRange))
                     {
                         // Close the previous style
                         jText.Append("</style>");
@@ -494,6 +492,22 @@ namespace Converter
 
             XmlCDataSection styledText = jDoc.CreateCDataSection("\"" + jText + "\"");
             textFieldExp.AppendChild(styledText);
+        }
+
+        protected bool AreStylesEqual(Word.Range r1, Word.Range r2)
+        {
+            if (
+                r1.Bold != r2.Bold
+                || r1.Italic != r2.Italic
+                || r1.Underline != r2.Underline
+                )
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         protected String GetOpenStyleTag(Word.Range style)
