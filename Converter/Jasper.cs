@@ -414,12 +414,14 @@ namespace Converter
             XmlElement textField = jDoc.CreateElement("textField");
             XmlElement reportElt = jDoc.CreateElement("reportElement");
             XmlElement textElt = jDoc.CreateElement("textElement");
+            XmlElement textFont = jDoc.CreateElement("font");
             XmlElement textFieldExp = jDoc.CreateElement("textFieldExpression");
 
             band.AppendChild(textField);
             textField.AppendChild(reportElt);
             textField.AppendChild(textElt);
             textField.AppendChild(textFieldExp);
+            textElt.AppendChild(textFont);
 
             textField.SetAttribute("isStretchWithOverflow", "true");
             textField.SetAttribute("isBlankWhenNull", "true");
@@ -434,13 +436,17 @@ namespace Converter
             reportElt.SetAttribute("height", fontSize.ToString());
 
             textElt.SetAttribute("markup", "styled");
-
+            
             // Get the format of the first character we are parsing. This becomes
             // our 'base' format.
             int textLength = text.Length;
             Word.Characters chars = paragraph.Range.Characters;
 
             Word.Range refRange = chars[parseFromChar + 1];
+
+            textFont.SetAttribute("fontName", refRange.Font.Name);
+            textFont.SetAttribute("size", refRange.Font.Size.ToString());
+
             Word.Range lastRange = refRange;
 
             String openStyle, closeStyle;
