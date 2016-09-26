@@ -461,8 +461,33 @@ namespace Converter
                         refStyle = curStyle;
                     }
                 }
-                // TODO: Cater for control characters, fields, etc
-                jText.Append(text.Substring(c, 1));
+                // TODO: Cater for fields, etc
+                String ch = text.Substring(c, 1);
+                if (ch == "<")
+                {
+                    ch = "&lt;";
+                }
+                else if (ch == ">")
+                {
+                    ch = "&gt;";
+                }
+                else if (ch == "&")
+                {
+                    ch = "&amp;";
+                }
+                else if (ch == "\"")
+                {
+                    ch = "&quot;";
+                }
+                else if (ch == "'")
+                {
+                    ch = "&apos;";
+                }
+                else if (ch == "\r" || ch == "\n" || ch == "\v")
+                {
+                    ch = "<br/>";
+                }
+                jText.Append(ch);
             }
             // Close the style
             jText.Append("</style>");
