@@ -446,7 +446,7 @@ namespace Converter
 
             textFont.SetAttribute("fontName", refRange.Font.Name);
             textFont.SetAttribute("size", refRange.Font.Size.ToString());
-
+            reportElt.SetAttribute("forecolor", RGBHex(refRange.Font.TextColor.RGB));
             Word.Range lastRange = refRange;
 
             String openStyle, closeStyle;
@@ -585,6 +585,13 @@ namespace Converter
                 openTag = tagText.ToString();
                 closeTag = "</style>";
             }
+        }
+
+        private String RGBHex(int col)
+        {
+            String x = col.ToString("X6");
+            String r = "#" + x.Substring(4, 2) + x.Substring(2, 2) + x.Substring(0, 2);
+            return r;
         }
     }
 }
