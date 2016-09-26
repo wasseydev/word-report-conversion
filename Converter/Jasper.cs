@@ -514,6 +514,7 @@ namespace Converter
                     != (r2.Underline == Word.WdUnderline.wdUnderlineNone)
                 || r1.Font.Name != r2.Font.Name
                 || r1.Font.Size != r2.Font.Size
+                || r1.Font.StrikeThrough != r2.Font.StrikeThrough
                 )
             {
                 return false;
@@ -569,6 +570,11 @@ namespace Converter
             {
                 tagText.Append(" size=\\\"").Append(curRange.Font.Size.ToString())
                     .Append("\\\"");
+                styled = true;
+            }
+            if (curRange.Font.StrikeThrough != 0)
+            {
+                tagText.Append(" isStrikeThrough=\\\"true\\\"");
                 styled = true;
             }
             tagText.Append(">");
