@@ -441,22 +441,27 @@ namespace Converter
             Word.Characters chars = paragraph.Range.Characters;
 
             Word.Range refRange = chars[parseFromChar + 1];
-            StringBuilder jText = new StringBuilder(GetOpenStyleTag(refRange), 2048);
+            Word.Range lastRange = refRange;
+
+            String openStyle, closeStyle;
+            GetStyleTags(refRange, out openStyle, out closeStyle);
+            StringBuilder jText = new StringBuilder(openStyle, 2048);
             
             for (int c = parseFromChar; c < textLength; c++)
             {
                 if (c > parseFromChar)
                 {
-                    // Compare the style to refStyle, and if different, close previous
-                    // style tag and create a new one
+                    // Compare the style to refRange, and if style is different,
+                    // close previousstyle tag and create a new one
                     Word.Range curRange = chars[c + 1];
-                    if (!AreStylesEqual(refRange, curRange))
+                    if (!AreStylesEqual(lastRange, curRange))
                     {
                         // Close the previous style
-                        jText.Append("</style>");
+                        jText.Append(closeStyle);
                         // Start the new style
-                        jText.Append(GetOpenStyleTag(curRange));
-                        refRange = curRange;
+                        GetStyleTags(curRange, out openStyle, out closeStyle);
+                        jText.Append(openStyle);
+                        lastRange = curRange;
                     }
                 }
                 // TODO: Cater for fields, etc
@@ -488,7 +493,7 @@ namespace Converter
                 jText.Append(ch);
             }
             // Close the style
-            jText.Append("</style>");
+            jText.Append(closeStyle);
 
             XmlCDataSection styledText = jDoc.CreateCDataSection("\"" + jText + "\"");
             textFieldExp.AppendChild(styledText);
@@ -499,7 +504,8 @@ namespace Converter
             if (
                 r1.Bold != r2.Bold
                 || r1.Italic != r2.Italic
-                || r1.Underline != r2.Underline
+                || (r1.Underline == Word.WdUnderline.wdUnderlineNone)
+                    != (r2.Underline == Word.WdUnderline.wdUnderlineNone)
                 )
             {
                 return false;
@@ -510,18 +516,37 @@ namespace Converter
             }
         }
 
-        protected String GetOpenStyleTag(Word.Range style)
+        protected void GetStyleTags(Word.Range style,
+            out String openTag, out String closeTag)
         {
-            StringBuilder tagText = new StringBuilder("<style ", 50);
-            tagText.Append("isBold=\\\"").Append(style.Bold != 0 ? 
-                "true" : "false").Append("\\\" ");
-            tagText.Append("isItalic=\\\"").Append(style.Italic != 0 ? 
-                "true" : "false").Append("\\\" ");
-            tagText.Append("isUnderline=\\\"").Append(style.Underline != 
-                Word.WdUnderline.wdUnderlineNone ? "true" : "false").Append("\\\" ");
+            bool styled = false;
+            openTag = "";
+            closeTag = "";
 
+            StringBuilder tagText = new StringBuilder("<style", 50);
+            if (style.Bold != 0)
+            {
+                tagText.Append(" isBold=\\\"true\\\"");
+                styled = true;
+            }
+            if (style.Italic != 0)
+            {
+                tagText.Append(" isItalic=\\\"true\\\"");
+                styled = true;
+            }
+            if (style.Underline != Word.WdUnderline.wdUnderlineNone)
+            {
+                tagText.Append(" isUnderline=\\\"true\\\"");
+                styled = true;
+            }
             tagText.Append(">");
-            return tagText.ToString();
+
+            // Only update the output style tags if there was an attribute set
+            if (styled)
+            {
+                openTag = tagText.ToString();
+                closeTag = "</style>";
+            }
         }
     }
 }
