@@ -513,6 +513,7 @@ namespace Converter
                 || (r1.Underline == Word.WdUnderline.wdUnderlineNone)
                     != (r2.Underline == Word.WdUnderline.wdUnderlineNone)
                 || r1.Font.Name != r2.Font.Name
+                || r1.Font.Size != r2.Font.Size
                 )
             {
                 return false;
@@ -561,6 +562,12 @@ namespace Converter
             if (curRange.Font.Name != refRange.Font.Name)
             {
                 tagText.Append(" fontName=\\\"").Append(curRange.Font.Name)
+                    .Append("\\\"");
+                styled = true;
+            }
+            if (curRange.Font.Size != refRange.Font.Size)
+            {
+                tagText.Append(" size=\\\"").Append(curRange.Font.Size.ToString())
                     .Append("\\\"");
                 styled = true;
             }
