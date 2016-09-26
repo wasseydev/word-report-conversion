@@ -522,7 +522,16 @@ namespace Converter
             }
         }
 
-        protected void GetStyleTags(Word.Range style,
+        /// <summary>
+        /// Get the style tag for the current range. It will consider attributes
+        /// such as bold, italic, etc, and if these are set, it will return the
+        /// appropriate open and close tags. If there are no attributes set, then
+        /// no tags will be returned.
+        /// </summary>
+        /// <param name="curRange">The current range to be considered</param>
+        /// <param name="openTag">Output of the opening style tag</param>
+        /// <param name="closeTag">Output of the closing style tag</param>
+        protected void GetStyleTags(Word.Range curRange,
             out String openTag, out String closeTag)
         {
             bool styled = false;
@@ -530,17 +539,17 @@ namespace Converter
             closeTag = "";
 
             StringBuilder tagText = new StringBuilder("<style", 50);
-            if (style.Bold != 0)
+            if (curRange.Bold != 0)
             {
                 tagText.Append(" isBold=\\\"true\\\"");
                 styled = true;
             }
-            if (style.Italic != 0)
+            if (curRange.Italic != 0)
             {
                 tagText.Append(" isItalic=\\\"true\\\"");
                 styled = true;
             }
-            if (style.Underline != Word.WdUnderline.wdUnderlineNone)
+            if (curRange.Underline != Word.WdUnderline.wdUnderlineNone)
             {
                 tagText.Append(" isUnderline=\\\"true\\\"");
                 styled = true;
