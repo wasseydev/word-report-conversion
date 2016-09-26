@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Word = Microsoft.Office.Interop.Word;
 using System.Xml;
+using System.Drawing;
 
 namespace Converter
 {
@@ -515,6 +516,7 @@ namespace Converter
                 || r1.Font.Name != r2.Font.Name
                 || r1.Font.Size != r2.Font.Size
                 || r1.Font.StrikeThrough != r2.Font.StrikeThrough
+                || r1.Font.TextColor.RGB != r2.Font.TextColor.RGB
                 )
             {
                 return false;
@@ -577,6 +579,12 @@ namespace Converter
                 tagText.Append(" isStrikeThrough=\\\"true\\\"");
                 styled = true;
             }
+            if (curRange.Font.TextColor.RGB != refRange.Font.TextColor.RGB)
+            {
+                tagText.Append(" forecolor=\\\"").Append(RGBHex(curRange.Font.TextColor.RGB))
+                    .Append("\\\"");
+                styled = true;
+            }
             tagText.Append(">");
 
             // Only update the output style tags if there was an attribute set
@@ -589,8 +597,8 @@ namespace Converter
 
         private String RGBHex(int col)
         {
-            String x = col.ToString("X6");
-            String r = "#" + x.Substring(4, 2) + x.Substring(2, 2) + x.Substring(0, 2);
+            Color c = Color.FromArgb(col);
+            String r = "#" + c.B.ToString("X2") + c.G.ToString("X2") + c.R.ToString("X2");
             return r;
         }
     }
