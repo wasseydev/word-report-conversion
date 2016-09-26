@@ -450,7 +450,7 @@ namespace Converter
             Word.Range lastRange = refRange;
 
             String openStyle, closeStyle;
-            GetStyleTags(refRange, out openStyle, out closeStyle);
+            GetStyleTags(refRange, refRange, out openStyle, out closeStyle);
             StringBuilder jText = new StringBuilder(openStyle, 2048);
             
             for (int c = parseFromChar; c < textLength; c++)
@@ -465,7 +465,7 @@ namespace Converter
                         // Close the previous style
                         jText.Append(closeStyle);
                         // Start the new style
-                        GetStyleTags(curRange, out openStyle, out closeStyle);
+                        GetStyleTags(curRange, refRange, out openStyle, out closeStyle);
                         jText.Append(openStyle);
                         lastRange = curRange;
                     }
@@ -526,12 +526,15 @@ namespace Converter
         /// Get the style tag for the current range. It will consider attributes
         /// such as bold, italic, etc, and if these are set, it will return the
         /// appropriate open and close tags. If there are no attributes set, then
-        /// no tags will be returned.
+        /// no tags will be returned.<br/>
+        /// Attributes including the font name and size will be compared against
+        /// the reference range, and if they differ, attributes will be set.
         /// </summary>
         /// <param name="curRange">The current range to be considered</param>
+        /// <param name="refRange">The reference range to be compared against</param>
         /// <param name="openTag">Output of the opening style tag</param>
         /// <param name="closeTag">Output of the closing style tag</param>
-        protected void GetStyleTags(Word.Range curRange,
+        protected void GetStyleTags(Word.Range curRange, Word.Range refRange,
             out String openTag, out String closeTag)
         {
             bool styled = false;
