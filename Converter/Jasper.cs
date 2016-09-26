@@ -435,10 +435,54 @@ namespace Converter
 
             textElt.SetAttribute("markup", "styled");
 
-            // TODO: Set the text considering the format
+            // Get the format of the first character we are parsing. This becomes
+            // our 'base' format.
+            int textLength = text.Length;
+            Word.Characters chars = paragraph.Range.Characters;
 
-            XmlCDataSection styledText = jDoc.CreateCDataSection("\"" + text + "\"");
+            Word.Range refStyle = chars[parseFromChar + 1];
+            StringBuilder jText = new StringBuilder(GetOpenStyleTag(refStyle), 2048);
+            
+            for (int c = parseFromChar; c < textLength; c++)
+            {
+                if (c > parseFromChar)
+                {
+                    // Compare the style to refStyle, and if different, close previous
+                    // style tag and create a new one
+                    Word.Range curStyle = chars[c + 1];
+                    if (refStyle.Bold != curStyle.Bold
+                        || refStyle.Italic != curStyle.Italic
+                        || refStyle.Underline != curStyle.Underline)
+                    {
+                        // Close the previous style
+                        jText.Append("</style>");
+                        // Start the new style
+                        jText.Append(GetOpenStyleTag(curStyle));
+                        refStyle = curStyle;
+                    }
+                }
+                // TODO: Cater for control characters, fields, etc
+                jText.Append(text.Substring(c, 1));
+            }
+            // Close the style
+            jText.Append("</style>");
+
+            XmlCDataSection styledText = jDoc.CreateCDataSection("\"" + jText + "\"");
             textFieldExp.AppendChild(styledText);
+        }
+
+        protected String GetOpenStyleTag(Word.Range style)
+        {
+            StringBuilder tagText = new StringBuilder("<style ", 50);
+            tagText.Append("isBold=\\\"").Append(style.Bold != 0 ? 
+                "true" : "false").Append("\\\" ");
+            tagText.Append("isItalic=\\\"").Append(style.Italic != 0 ? 
+                "true" : "false").Append("\\\" ");
+            tagText.Append("isUnderline=\\\"").Append(style.Underline != 
+                Word.WdUnderline.wdUnderlineNone ? "true" : "false").Append("\\\" ");
+
+            tagText.Append(">");
+            return tagText.ToString();
         }
     }
 }
