@@ -426,12 +426,14 @@ namespace Converter
             // Add the text field, report element, text element, and text field expression
             XmlElement textField = jDoc.CreateElement("textField");
             XmlElement reportElt = jDoc.CreateElement("reportElement");
+            XmlElement box = jDoc.CreateElement("box");
             XmlElement textElt = jDoc.CreateElement("textElement");
             XmlElement textFont = jDoc.CreateElement("font");
             XmlElement textFieldExp = jDoc.CreateElement("textFieldExpression");
 
             band.AppendChild(textField);
             textField.AppendChild(reportElt);
+            textField.AppendChild(box);
             textField.AppendChild(textElt);
             textField.AppendChild(textFieldExp);
             textElt.AppendChild(textFont);
@@ -440,7 +442,6 @@ namespace Converter
             textField.SetAttribute("isBlankWhenNull", "true");
 
             reportElt.SetAttribute("stretchType", "RelativeToBandHeight");
-            // TODO: Set these attributes to be dynamic based upon paragraph
             reportElt.SetAttribute("x", "0");
             reportElt.SetAttribute("width", ((int)columnWidth).ToString());
             // TODO: If not detail band, then y and height need to be calculated
@@ -448,6 +449,11 @@ namespace Converter
             reportElt.SetAttribute("y", spaceBefore.ToString());
             reportElt.SetAttribute("height", fontSize.ToString());
 
+            // Left and right indents - use the box, so we have flexibility to use the
+            // first line indent with negative values for hanging indents.
+            box.SetAttribute("leftPadding", ((int)paragraph.LeftIndent).ToString());
+            box.SetAttribute("rightPadding", ((int)paragraph.RightIndent).ToString());
+            
             textElt.SetAttribute("markup", "styled");
             
             // Get the format of the first character we are parsing. This becomes
