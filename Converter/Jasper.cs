@@ -396,9 +396,8 @@ namespace Converter
                 jDetail.AppendChild(band);
 
                 // Set the band attributes
-                // Set the height based upon the paragraph style - it will stretch
-
-                band.SetAttribute("height", bandHeight.ToString());
+                // Set the height based upon the font size - it will stretch
+                band.SetAttribute("height", fontSize.ToString());
                 // Split type
                 band.SetAttribute("splitType", "Stretch");
             }
@@ -446,14 +445,16 @@ namespace Converter
             reportElt.SetAttribute("width", ((int)columnWidth).ToString());
             // TODO: If not detail band, then y and height need to be calculated
             // TODO: y position should consider the paragraph spacing before
-            reportElt.SetAttribute("y", spaceBefore.ToString());
+            reportElt.SetAttribute("y", "0");
             reportElt.SetAttribute("height", fontSize.ToString());
 
             // Left and right indents - use the box, so we have flexibility to use the
             // first line indent with negative values for hanging indents.
             box.SetAttribute("leftPadding", ((int)paragraph.LeftIndent).ToString());
             box.SetAttribute("rightPadding", ((int)paragraph.RightIndent).ToString());
-            
+            // Top and bottom - spacing before and after
+            box.SetAttribute("topPadding", spaceBefore.ToString());
+            box.SetAttribute("bottomPadding", spaceAfter.ToString());
             textElt.SetAttribute("markup", "styled");
             
             // Get the format of the first character we are parsing. This becomes
