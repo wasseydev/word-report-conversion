@@ -427,6 +427,7 @@ namespace Converter
             XmlElement reportElt = jDoc.CreateElement("reportElement");
             XmlElement box = jDoc.CreateElement("box");
             XmlElement textElt = jDoc.CreateElement("textElement");
+            XmlElement textEltParag = jDoc.CreateElement("paragraph");
             XmlElement textFont = jDoc.CreateElement("font");
             XmlElement textFieldExp = jDoc.CreateElement("textFieldExpression");
 
@@ -436,6 +437,7 @@ namespace Converter
             textField.AppendChild(textElt);
             textField.AppendChild(textFieldExp);
             textElt.AppendChild(textFont);
+            textElt.AppendChild(textEltParag);
 
             textField.SetAttribute("isStretchWithOverflow", "true");
             textField.SetAttribute("isBlankWhenNull", "true");
@@ -452,7 +454,8 @@ namespace Converter
             // first line indent with negative values for hanging indents.
             box.SetAttribute("leftPadding", ((int)paragraph.LeftIndent).ToString());
             box.SetAttribute("rightPadding", ((int)paragraph.RightIndent).ToString());
-            // Top and bottom - spacing before and after
+            textEltParag.SetAttribute("firstLineIndent", ((int)paragraph.FirstLineIndent).ToString());
+            // Top and bottom - paragraph spacing before and after
             box.SetAttribute("topPadding", spaceBefore.ToString());
             box.SetAttribute("bottomPadding", spaceAfter.ToString());
             textElt.SetAttribute("markup", "styled");
