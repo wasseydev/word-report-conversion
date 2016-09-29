@@ -26,6 +26,13 @@ namespace Converter
         NoData
     }
 
+    public enum StyleCheck
+    {
+        CheckEveryCharacter,
+        CheckEveryWordBoundary,
+        CheckEveryParagraph
+    }
+
     public class Jasper
     {
         /// <summary>
@@ -104,6 +111,10 @@ namespace Converter
         /// The current band type that we are processing
         /// </summary>
         BandType currentBandType;
+        /// <summary>
+        /// The frequency with which the styles are checked for changes.
+        /// </summary>
+        StyleCheck styleCheck;
 
         /// <summary>
         /// Constructor that takes a Word.Application reference. In this case, the
@@ -147,6 +158,7 @@ namespace Converter
         public void SetDefaultPreferences()
         {
             //TODO: Complete this
+            styleCheck = StyleCheck.CheckEveryCharacter;
         }
 
         /// <summary>
@@ -508,10 +520,29 @@ namespace Converter
             
             for (int c = parseFromChar; c < textLength; c++)
             {
-                if (c > parseFromChar)
+                // Current character
+                String ch = text.Substring(c, 1);
+                // Previous character
+                String prevCh = text.Substring((c > 0 ? c - 1 : 0), 1);
+
+                // Check if we are processing style changes
+                if (c > parseFromChar && // Must be past the first character to parse
+                    (
+                        // Either every character
+                        styleCheck == StyleCheck.CheckEveryCharacter ||
+                        // Or every word boundary (whitespace, punctuation)
+                        (   styleCheck == StyleCheck.CheckEveryWordBoundary && 
+                            (
+                                Char.IsWhiteSpace(ch, 0) || Char.IsWhiteSpace(prevCh, 0) ||
+                                Char.IsPunctuation(ch, 0) || Char.IsPunctuation(prevCh, 0) ||
+                                Char.IsSeparator(ch, 0) || Char.IsSeparator(prevCh, 0)
+                            )
+                        )
+                    )
+                )
                 {
                     // Compare the style to refRange, and if style is different,
-                    // close previousstyle tag and create a new one
+                    // close previous style tag and create a new one
                     Word.Range curRange = chars[c + 1];
                     if (!AreStylesEqual(lastRange, curRange))
                     {
@@ -523,8 +554,8 @@ namespace Converter
                         lastRange = curRange;
                     }
                 }
+                
                 // TODO: Cater for fields, etc
-                String ch = text.Substring(c, 1);
                 if (ch == "<")
                 {
                     ch = "&lt;";
