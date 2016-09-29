@@ -458,6 +458,36 @@ namespace Converter
             // Top and bottom - paragraph spacing before and after
             box.SetAttribute("topPadding", spaceBefore.ToString());
             box.SetAttribute("bottomPadding", spaceAfter.ToString());
+
+            // Paragraph alignment
+            {
+                String alignment = "";
+                switch (paragraph.Alignment)
+                {
+                    case Word.WdParagraphAlignment.wdAlignParagraphLeft:
+                        alignment = "Left";
+                        break;
+                    case Word.WdParagraphAlignment.wdAlignParagraphRight:
+                        alignment = "Right";
+                        break;
+                    case Word.WdParagraphAlignment.wdAlignParagraphCenter:
+                        alignment = "Center";
+                        break;
+                    case Word.WdParagraphAlignment.wdAlignParagraphJustify:
+                    case Word.WdParagraphAlignment.wdAlignParagraphJustifyHi:
+                    case Word.WdParagraphAlignment.wdAlignParagraphJustifyMed:
+                    case Word.WdParagraphAlignment.wdAlignParagraphJustifyLow:
+                    case Word.WdParagraphAlignment.wdAlignParagraphDistribute:
+                    case Word.WdParagraphAlignment.wdAlignParagraphThaiJustify:
+                        alignment = "Justified";
+                        break;
+                    default:
+                        break;
+                }
+                textElt.SetAttribute("textAlignment", alignment);
+            }
+
+            // Markup type
             textElt.SetAttribute("markup", "styled");
             
             // Get the format of the first character we are parsing. This becomes
