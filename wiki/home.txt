@@ -1,0 +1,17 @@
+Welcome to the Word to Report Conversion wiki.
+
+Word to Report Conversion is a tool designed to take the legwork out of creating standard document-type reports. Simply type up your document in Word, and let the tool analyse your document and produce a report format such as Jasper Reports jrxml.
+
+This tool is currently in development, and here are some of the features that are currently supported.
+* Output to jrxml
+* Basic ability to switch between different band types (background, title, page header, column header, detail, column footer, page footer, last page footer, summary, no data)
+* Left, right, and first line indenting
+* Top and bottom paragraph spacing
+* Paragraph alignment (left, right, center, justified)
+* Inline character styling, including font, size, colour, bold, italic, underline, strike through
+
+Other features that will be implemented.
+* Ability to specify fields and parameters by Jasper notation $F{xyz} and $P{zyx}
+* Generation of a dummy query based upon the fields in the document
+* Paragraph bullets
+
