@@ -99,18 +99,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_81F82441963AE7246844B350FED07B19"
-        "OwnerKey" = "8:_2FF5A40A10134EF1A6B70D083DCFA7BC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_81F82441963AE7246844B350FED07B19"
-        "OwnerKey" = "8:_62264838078C4E93AF7CF8A9087E26BE"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_964DF96711DC44A6A977F57F98615488"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -141,6 +129,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C8F104DEB306A4D647AB4DEC62691421"
+        "OwnerKey" = "8:_2FF5A40A10134EF1A6B70D083DCFA7BC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C8F104DEB306A4D647AB4DEC62691421"
+        "OwnerKey" = "8:_62264838078C4E93AF7CF8A9087E26BE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_E274A3CEA3F23F0B94BE5844EFE8AC48"
         "OwnerKey" = "8:_5757802600905B6B7B0EFC4EB0590ACB"
         "MsmSig" = "8:_UNDEFINED"
@@ -166,13 +166,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_62264838078C4E93AF7CF8A9087E26BE"
+        "OwnerKey" = "8:_C8F104DEB306A4D647AB4DEC62691421"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_81F82441963AE7246844B350FED07B19"
+        "OwnerKey" = "8:_62264838078C4E93AF7CF8A9087E26BE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -242,6 +242,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5.2"
+                    }
+                }
             }
         }
         "Release"
@@ -301,7 +309,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.5"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.5.2"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=395269"
                 }
@@ -453,37 +461,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_81F82441963AE7246844B350FED07B19"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Converter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_81F82441963AE7246844B350FED07B19"
-                    {
-                    "Name" = "8:Converter.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Converter.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_60D3511486ED4D9FB885235043107435"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_964DF96711DC44A6A977F57F98615488"
             {
             "SourcePath" = "8:..\\ReportConversionAddIn\\bin\\Release\\ReportConversionAddIn.dll.manifest"
@@ -563,6 +540,37 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C8F104DEB306A4D647AB4DEC62691421"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Converter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_C8F104DEB306A4D647AB4DEC62691421"
+                    {
+                    "Name" = "8:Converter.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Converter.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_60D3511486ED4D9FB885235043107435"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -654,7 +662,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Word Report Conversion"
         "ProductCode" = "8:{52032CEE-90B0-48F9-BC73-022B06B7EF57}"
-        "PackageCode" = "8:{709C4F44-2B0D-4863-B553-AB1372EAAEA6}"
+        "PackageCode" = "8:{7F994117-FB64-4C42-948D-25E6FD496E81}"
         "UpgradeCode" = "8:{AB888CA7-FD6F-4CC0-B82C-FA5CBA523B2C}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
